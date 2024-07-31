@@ -17,7 +17,6 @@ class GameAdmin(admin.ModelAdmin):
     list_display = (
         'name_game',
         'description',
-        'total_score',
     )
     list_filter = (
         'name_game',

@@ -5,7 +5,6 @@ class Game(models.Model):
     users = models.ManyToManyField('users.User', through='UserGame')
     name_game = models.CharField(max_length=100)
     description = models.TextField()
-    total_score = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name_game
@@ -17,3 +16,11 @@ class UserGame(models.Model):
 
     class Meta:
         unique_together = ('user', 'game')
+
+    def validate_option(self, option):
+        if option.is_correct:
+            self.score += option.question.score
+            self.save()
+        return option.is_correct
+
+        
