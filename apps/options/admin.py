@@ -10,9 +10,8 @@ class OptionAdmin(ModelAdmin):
     list_display = (
         'question',
         'option',
-        'score',
         'is_correct',
     )
     list_filter = (
-        'score',
+        'is_correct',
     )

@@ -1,12 +1,19 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin, register
-from .models import Game
+from .models import Game, UserGame
 
 # Register your models here.
-@register(Game)
-class GameAdmin(ModelAdmin):
+class UserGameAdmin(admin.ModelAdmin):
     list_display = (
-        'user',
+        'game',
+        'score',
+    )
+    list_filter = (
+        'game',
+    )
+
+class GameAdmin(admin.ModelAdmin):
+    list_display = (
         'name_game',
         'description',
         'total_score',
@@ -14,3 +21,6 @@ class GameAdmin(ModelAdmin):
     list_filter = (
         'name_game',
     )
+
+admin.site.register(UserGame, UserGameAdmin)
+admin.site.register(Game, GameAdmin)
