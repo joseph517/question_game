@@ -6,6 +6,7 @@ from .models import Game, UserGame
 class UserGameAdmin(admin.ModelAdmin):
     list_display = (
         'game',
+        'user',
         'score',
     )
     list_filter = (
