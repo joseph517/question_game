@@ -1,4 +1,5 @@
 from django.db import models
+from apps.questions.models import Question
 
 # Create your models here.
 class Game(models.Model):
@@ -13,11 +14,15 @@ class UserGame(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     game = models.ForeignKey('games.Game', on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
+    answered_questions = models.ManyToManyField('questions.Question')
 
     class Meta:
         unique_together = ('user', 'game')
 
     def validate_option(self, option):
+        print("Option:", option)
+
+        self.answered_questions.add(option.question.id)
         if option.is_correct:
             self.score += option.question.score
             self.save()

@@ -4,7 +4,7 @@ from apps.options.models import Option
 from apps.questions.api.serializers import QuestionSerializer, validateAnswerSerializer
 from apps.questions.models import Question
 from rest_framework.response import Response
-from apps.games.models import UserGame
+from apps.games.models import Game, UserGame
 
 
 #views to questions services
@@ -31,9 +31,16 @@ class DeleteQuestionService(generics.DestroyAPIView):
         instance.delete()
 
 class ListQuestionService(generics.ListAPIView):
+
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        game_id = self.kwargs.get('game_id')
+        game = Game.objects.get(id=game_id)
+        user_game, created = UserGame.objects.get_or_create(user=self.request.user, game=game)           
+        return self.queryset.filter(game=game_id).exclude(id__in=user_game.answered_questions.all().values_list('id', flat=True))
 
 
 class ValidateAnswerView(generics.GenericAPIView):
