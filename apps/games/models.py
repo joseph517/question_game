@@ -14,7 +14,7 @@ class UserGame(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     game = models.ForeignKey('games.Game', on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
-    answered_questions = models.ManyToManyField('questions.Question')
+    answered_questions = models.ManyToManyField('questions.Question', blank=True, null=True)
 
     class Meta:
         unique_together = ('user', 'game')
