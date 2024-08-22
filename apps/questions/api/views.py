@@ -45,7 +45,7 @@ class ListQuestionService(generics.ListAPIView):
 
 class ValidateAnswerView(generics.GenericAPIView):
     serializer_class = validateAnswerSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
     def post(self, request, *args, **kwargs):

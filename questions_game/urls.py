@@ -27,7 +27,7 @@ urlpatterns = [
     path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
 
 
-    # path('api/users/', include('apps.users.api.urls')),
+    path('api/users/', include('apps.users.api.urls')),
     path('api/games/', include('apps.games.api.urls')),
     path('api/questions/', include('apps.questions.api.urls')),
     path('api/options/', include('apps.options.api.urls')),

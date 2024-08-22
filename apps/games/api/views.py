@@ -36,8 +36,9 @@ class ListGameService(generics.ListAPIView):
     serializer_class = GameSerializer
     permission_classes = [IsAuthenticated]
 
-
 class GameRankingView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
     def get(self, request, game_id):
         try:
             game = Game.objects.get(id=game_id)

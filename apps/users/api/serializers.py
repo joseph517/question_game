@@ -1,8 +1,4 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework.response import Response
-
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
