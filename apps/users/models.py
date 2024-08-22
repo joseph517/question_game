@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+from apps.games.models import Game
+
 # Create your models here.
 
 class CustomUserManager(BaseUserManager):
@@ -27,9 +29,7 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     
-    
     name = models.CharField(max_length=100)
-
     email = models.EmailField(
         max_length=100,
         unique=True,
@@ -37,24 +37,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=False,
         default='none',
         )
-    
     password = models.CharField(
         max_length=128, 
         null=True, 
         blank=False,
         default=None,
     )
-
     is_active = models.BooleanField(default=True)
-
     is_staff = models.BooleanField(default=False)
-
-
+    
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
-
-    
 
     groups = models.ManyToManyField(
         'auth.Group',
