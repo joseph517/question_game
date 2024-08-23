@@ -72,7 +72,7 @@ class DeleteUserView(generics.DestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         try:
-            user = get_object_or_404(User, pk=kwargs['pk'])  # Buscar el usuario por ID
+            user = get_object_or_404(User, pk=kwargs['pk'])
             user.delete()
             return Response({"message": "Usuario eliminado exitosamente", "email": user.email}, status=status.HTTP_200_OK)
 

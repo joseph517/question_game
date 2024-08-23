@@ -42,8 +42,6 @@ class ListGameView(generics.ListAPIView):
         return self.queryset.filter(user_games__user=user)
 
 
-       
-
 class RankingGameView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
 

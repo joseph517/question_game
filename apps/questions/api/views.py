@@ -9,12 +9,12 @@ from apps.games.models import Game, UserGame
 
 #views to questions services
 
-class CreateQuestionService(generics.CreateAPIView):
+class CreateQuestionView(generics.CreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
 
-class UpdateQuestionService(generics.UpdateAPIView):
+class UpdateQuestionView(generics.UpdateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -22,7 +22,7 @@ class UpdateQuestionService(generics.UpdateAPIView):
     def put (self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
     
-class DeleteQuestionService(generics.DestroyAPIView):
+class DeleteQuestionView(generics.DestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -30,7 +30,7 @@ class DeleteQuestionService(generics.DestroyAPIView):
     def perform_destroy(self, instance):
         instance.delete()
 
-class ListQuestionService(generics.ListAPIView):
+class ListQuestionByGame(generics.ListAPIView):
 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
@@ -41,6 +41,11 @@ class ListQuestionService(generics.ListAPIView):
         game = Game.objects.get(id=game_id)
         user_game, created = UserGame.objects.get_or_create(user=self.request.user, game=game)           
         return self.queryset.filter(game=game_id).exclude(id__in=user_game.answered_questions.all().values_list('id', flat=True))
+    
+class ListQuestionView(generics.ListAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ValidateAnswerView(generics.GenericAPIView):
