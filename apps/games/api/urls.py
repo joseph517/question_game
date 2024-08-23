@@ -9,6 +9,6 @@ urlpatterns = [
     path('delete/<int:pk>/', DeleteGameView.as_view(), name='delete_game'),
     path('list/', ListGameView.as_view(), name='list_game'),
     path('ranking/<int:game_id>/', RankingGameView.as_view(), name='game_ranking'),
-    path('assign/', AssignGameView.as_view(), name='assign_game'),
+    path('assign/', AssignGameToUserView.as_view(), name='assign_game'),
       
 ]

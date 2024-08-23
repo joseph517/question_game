@@ -56,7 +56,7 @@ class RankingGameView(APIView):
         return Response(user_scores, status=status.HTTP_200_OK)
     
 
-class AssignGameView(generics.CreateAPIView):
+class AssignGameToUserView(generics.CreateAPIView):
     serializer_class = UserGameSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
 

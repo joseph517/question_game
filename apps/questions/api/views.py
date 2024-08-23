@@ -47,11 +47,9 @@ class ListQuestionView(generics.ListAPIView):
     serializer_class = QuestionSerializer
     permission_classes = [IsAuthenticated]
 
-
 class ValidateAnswerView(generics.GenericAPIView):
     serializer_class = validateAnswerSerializer
     permission_classes = [IsAuthenticated]
-
 
     def post(self, request, *args, **kwargs):
         question_id = request.data.get('question_id')

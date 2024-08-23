@@ -1,16 +1,20 @@
-from rest_framework import generics
+from urllib import response
+from rest_framework import generics, status
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from apps.options.api.serializers import OptionSerializer
 from apps.options.models import Option
+from apps.questions.models import Question
+from rest_framework.response import Response
 
-#views to options services
 
-class CreateOptionService(generics.CreateAPIView):
+
+class CreateOptionView(generics.CreateAPIView):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
 
-class UpdateOptionService(generics.UpdateAPIView):
+
+class UpdateOptionView(generics.UpdateAPIView):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -18,7 +22,7 @@ class UpdateOptionService(generics.UpdateAPIView):
     def put (self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-class DeleteOptionService(generics.DestroyAPIView):
+class DeleteOptionView(generics.DestroyAPIView):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -26,7 +30,7 @@ class DeleteOptionService(generics.DestroyAPIView):
     def perform_destroy(self, instance):
         instance.delete()
 
-class ListOptionService(generics.ListAPIView):
+class ListOptionView(generics.ListAPIView):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
     permission_classes = [IsAuthenticated]
