@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from apps.options.models import Option
-from apps.questions.api.serializers import QuestionSerializer, validateAnswerSerializer
+from apps.questions.api.serializers import QuestionSerializer, QuestionsCreateSerializer, validateAnswerSerializer
 from apps.questions.models import Question
 from rest_framework.response import Response
 from apps.games.models import Game, UserGame
@@ -11,7 +11,7 @@ from apps.games.models import Game, UserGame
 
 class CreateQuestionView(generics.CreateAPIView):
     queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+    serializer_class = QuestionsCreateSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
 
 class UpdateQuestionView(generics.UpdateAPIView):
