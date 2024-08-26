@@ -13,11 +13,9 @@ class QuestionSerializer(serializers.ModelSerializer):
     options = OptionSerializer(many=True, read_only=True)
     game = GameSerializer(read_only=True)
     
-
     class Meta:
         model = Question
         fields = '__all__'
-
 
 class QuestionsCreateSerializer(serializers.ModelSerializer):
     options = OptionSerializer(many=True, read_only=True)

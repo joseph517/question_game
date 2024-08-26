@@ -39,7 +39,7 @@ class ListQuestionByGame(generics.ListAPIView):
     def get_queryset(self):
         game_id = self.kwargs.get('game_id')
         game = Game.objects.get(id=game_id)
-        user_game, created = UserGame.objects.get_or_create(user=self.request.user, game=game)           
+        user_game, created = UserGame.objects.get_or_create(user=self.request.user, game=game)
         return self.queryset.filter(game=game_id).exclude(id__in=user_game.answered_questions.all().values_list('id', flat=True))
     
 class ListQuestionView(generics.ListAPIView):
