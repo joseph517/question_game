@@ -10,3 +10,8 @@ class UserGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGame
         fields = ['id', 'user', 'game', 'score']
+
+class ListGameByUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = ['id', 'name_game']

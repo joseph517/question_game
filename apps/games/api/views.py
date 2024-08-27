@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
-from apps.games.api.serializers import GameSerializer, UserGameSerializer
+from apps.games.api.serializers import GameSerializer, ListGameByUserSerializer, UserGameSerializer
 from apps.games.models import Game, UserGame
 from apps.users.models import User
 
@@ -61,8 +61,10 @@ class AssignGameToUserView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
 
     def post(self, request, *args, **kwargs):
-        user_id = request.headers.get('user_id')
-        game_id = request.headers.get('game_id')
+        data = request.data
+
+        user_id = data.get('user_id')
+        game_id = data.get('game_id')
 
         if not user_id or not game_id:
             return Response({'error': 'Missing user_id or game_id'}, status=status.HTTP_400_BAD_REQUEST)
@@ -83,3 +85,10 @@ class AssignGameToUserView(generics.CreateAPIView):
         user_game = UserGame.objects.create(user=user, game=game)
         serializer = self.get_serializer(user_game)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class ListGameByUserView(generics.ListAPIView):
+    serializer_class = ListGameByUserSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        return Game.objects.exclude(user_games__user_id=user_id)
